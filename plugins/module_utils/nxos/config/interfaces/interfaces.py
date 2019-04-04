@@ -83,8 +83,7 @@ class Interfaces(ConfigBase, InterfacesArgs):
         """
         want = self._module.params['config']
         for w in want:
-            if 'name' in w:
-                w.update({'name': normalize_interface(w['name'])})
+             w.update({'name': normalize_interface(w['name'])})
         have = self.get_interfaces_facts()
         resp = self.set_state(want, have)
         return to_list(resp)
@@ -192,10 +191,10 @@ class Interfaces(ConfigBase, InterfacesArgs):
 
         args = ('speed', 'description', 'duplex', 'mtu')
         name = w['name']
-        mode = w['mode']
-        ip_forward = w['ip_forward']
-        fabric_forwarding_anycast_gateway = w['fabric_forwarding_anycast_gateway']
-        enable = w['enable']
+        mode = w.get('mode')
+        ip_forward = w.get('ip_forward')
+        fabric_forwarding_anycast_gateway = w.get('fabric_forwarding_anycast_gateway')
+        enable = w.get('enable')
 
         if name:
             interface = 'interface ' + name
